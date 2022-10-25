@@ -286,6 +286,13 @@ table{
         width: 100%;
     }
 
+    .third .book .sb-book{
+        width: 25%;
+        height: 30%;
+        margin: 10px;
+        
+    }
+
     .quotes-box{
         width: 80%;
     }
