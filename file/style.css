@@ -18,6 +18,11 @@ nav{
     z-index: 1;
 }
 
+nav .logo img{
+    width: 40px;
+    margin-left: 20px;
+}
+
 nav ol{
     display: flex;
     justify-content: space-between;
@@ -236,6 +241,7 @@ table{
     nav{
         top: 0px;
         position: fixed;
+        font-size: 1em;
     }
 
     .first{
