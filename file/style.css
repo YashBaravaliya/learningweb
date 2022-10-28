@@ -244,6 +244,10 @@ table{
         font-size: 1em;
     }
 
+    nav ol a{
+        margin: 10px;
+    }
+
     .first{
         display: flex;
         flex-direction: column-reverse;
