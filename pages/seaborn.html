@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/file/style.css">  
+    <link rel="stylesheet" href="/file/pages.css">  
+    <link rel="stylesheet" href="/file/item.css">
+
+</head>
+<body>
+    <header>
+        <nav>
+            <span class="logo"><img src="/file/logo.png" alt="logo"></span>
+            <ol>
+                <li><a href="/index.html">Home</a></li>
+                <li>
+                    <div class="dropdown">
+                    <button class="dropbtn">course</button>
+                    <div class="dropdown-content">
+                        <a href="#">Python</a>
+                      <a href="Data Analysis.html">Data Analysis</a>
+                      <a href="#">web Devlopment</a>
+                    </div>
+                  </div>
+                </li>
+                <li><a href="">blog</a></li>
+                <li><a href="">contect us</a></li>
+                <!-- <li><a href="">java</a></li> -->
+            </ol>
+        </nav>
+        <!-- <hr> -->
+    </header>
+
+
+    <div class="page">
+        <iframe src="/Data analysis/Seaborn.html" title="Iframe"  scrolling="no" id="iframe" onload="resizeIframe(this)" ></iframe>
+    </div>
+
+
+
+        <div class="card" style="position:fixed ;">
+            <div class="align">
+                <span class="red"></span>
+                <span class="yellow"></span>
+                <span class="green"></span>
+            </div>
+        
+            <h2>Data Analysis</h2>
+            <div class="link">
+                <a href="numpy.html">
+                    <button class="cta">
+                    <span>Numpy</span>
+                    <svg viewBox="0 0 13 10" height="10px" width="15px">
+                      <path d="M1,5 L11,5"></path>
+                      <polyline points="8 1 12 5 8 9"></polyline>
+                    </svg>
+                  </button>
+                </a>
+                <a href="pandas.html">
+                    <button class="cta">
+                    <span>Pandas</span>
+                    <svg viewBox="0 0 13 10" height="10px" width="15px">
+                      <path d="M1,5 L11,5"></path>
+                      <polyline points="8 1 12 5 8 9"></polyline>
+                    </svg>
+                  </button>
+                </a>
+                <a href="matplotlib.html">
+                    <button class="cta">
+                    <span>Matplotlib</span>
+                    <svg viewBox="0 0 13 10" height="10px" width="15px">
+                      <path d="M1,5 L11,5"></path>
+                      <polyline points="8 1 12 5 8 9"></polyline>
+                    </svg>
+                  </button>
+                </a>
+                <a href="seaborn.html">
+                    <button class="cta">
+                    <span>Seaborn</span>
+                    <svg viewBox="0 0 13 10" height="10px" width="15px">
+                      <path d="M1,5 L11,5"></path>
+                      <polyline points="8 1 12 5 8 9"></polyline>
+                    </svg>
+                  </button>
+                </a>
+            </div>
+        </div>
+
+    <script>
+
+        function resizeIframe(obj) {
+      
+          obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+      
+        }
+      
+      </script>
+</body>
+</html>
