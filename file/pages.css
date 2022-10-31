@@ -57,8 +57,12 @@ animation: uiverse723 3s ease-in-out infinite;
     box-shadow: -40px 50px 30px rgba(0, 0, 0, 0.280);
     transform: skewX(10deg);
     transition: .4s;
-    overflow: hidden;
+    overflow: scroll;
     color: white;
+}
+
+.card::-webkit-scrollbar{
+    display: none;
 }
   
 .card:hover {
