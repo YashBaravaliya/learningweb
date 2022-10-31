@@ -128,6 +128,7 @@ iframe{
         /* background: #000; */
         width: 100vw;
         padding: 0px;
+        padding: 5px;
     }
     
 }
