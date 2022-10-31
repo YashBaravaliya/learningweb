@@ -1,0 +1,808 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Oop  Assignment-1</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="3a241068-e03b-449c-9179-4fe0091602b0" class="page serif"><header><div class="page-header-icon undefined"><img class="icon" src="data:image/png;base64,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"/></div><h1 class="page-title">Oop  Assignment-1</h1></header><div class="page-body"><h1 id="1796c4cd-1a5c-49f7-b60a-977e9665028e" class="block-color-orange">1. Explain java architecture </h1><p id="92094031-653a-454b-b85b-1371418e5c0a" class="block-color-blue"><strong>Java Architecture</strong> is a collection of components, i.e., <strong>JVM, JRE,</strong> and <strong>JDK</strong>. <strong>It</strong> integrates the process of interpretation and compilation. It defines all the processes involved in creating a Java program. <strong>Java Architecture</strong> explains each and every step of how a program is compiled and executed.</p><p id="ca710f9b-b2cb-41a7-afbe-96694469f2ce" class="block-color-blue"><strong>Java Architecture</strong> can be explained by using the following steps:</p><ul id="f344a4be-955e-4d33-877e-09d095a7273f" class="block-color-pink bulleted-list"><li style="list-style-type:disc">There is a process of compilation and interpretation in Java.</li></ul><ul id="9040f883-ed20-429d-b4eb-9e27345cf8d7" class="block-color-pink bulleted-list"><li style="list-style-type:disc">Java compiler converts the Java code into byte code.</li></ul><ul id="610ef4b4-d93c-4a1d-a3de-2117d4a5e32f" class="block-color-pink bulleted-list"><li style="list-style-type:disc">After that, the JVM converts the byte code into machine code.</li></ul><ul id="c991b7d2-b37a-4795-b502-199223c06736" class="block-color-pink bulleted-list"><li style="list-style-type:disc">The machine code is then executed by the machine.</li></ul><p id="3ecbd727-d143-4abc-b34b-c429fd8b8c83" class="block-color-blue">The following figure represents the <strong>Java Architecture</strong> in which each step is elaborate graphically.</p><figure id="f5d405fe-de92-46b5-932a-dd6ae11ab70d" class="image" style="text-align:center"><a href="https://static.javatpoint.com/core/images/java-architecture.png"><img style="width:432px" src="https://static.javatpoint.com/core/images/java-architecture.png"/></a></figure><h1 id="161bd2b8-274b-412d-b2b7-6f9defe086c0" class="block-color-teal">Components of Java Architecture</h1><p id="889ff01f-8280-4762-8834-8eeed2b525e2" class="block-color-blue">The Java architecture includes the three main components:</p><ul id="064cf952-ce87-45e4-8cdf-6744ac7f7314" class="block-color-blue bulleted-list"><li style="list-style-type:disc">Java Virtual Machine (JVM)</li></ul><ul id="7e5af035-b68c-4764-acb4-2455e38a0031" class="block-color-blue bulleted-list"><li style="list-style-type:disc">Java Runtime Environment (JRE)</li></ul><ul id="8b7fd349-915a-4573-b4f6-597bdaa20fbb" class="block-color-blue bulleted-list"><li style="list-style-type:disc">Java Development Kit (JDK)</li></ul><h3 id="3f5eeff4-fcaf-4713-941a-927cd472c7b3" class="">JVM</h3><p id="b27a78ca-d333-4a61-b38d-26d6eb80b1a4" class="block-color-blue">JVM (Java Virtual Machine) is an abstract machine. It is called a virtual machine because it doesn&#x27;t physically exist. It is a specification that provides a runtime environment in which Java bytecode can be executed. It can also run those programs which are written in other languages and compiled to Java bytecode.</p><h3 id="e92cdae8-d4f4-4aa8-abfe-f97fc584dca0" class="">JRE</h3><p id="2570a349-04bc-4903-86f1-0c2f39c45334" class="block-color-blue">JRE is an acronym for Java Runtime Environment. It is also written as Java RTE. The Java Runtime Environment is a set of software tools which are used for developing Java applications. It is used to provide the runtime environment. It is the implementation of JVM. It physically exists. It contains a set of libraries + other files that JVM uses at runtime.</p><figure id="c7b41e61-9dcd-43dc-951e-21aad0618608" class="image" style="text-align:center"><a href="https://static.javatpoint.com/images/jre2.png"><img style="width:432px" src="https://static.javatpoint.com/images/jre2.png"/></a></figure><h3 id="f6c69e48-7ff7-4936-ab81-8b474195feef" class="">JDK</h3><p id="e8ebfbf1-c2e0-4275-9a6f-549e9be7db7a" class="block-color-blue">JDK is an acronym for Java Development Kit. The Java Development Kit (JDK) is a software development environment which is used to develop Java applications and <a href="https://www.javatpoint.com/java-applet">applets</a>. It physically exists. It contains JRE + development tools.</p><figure id="4a4f9ed0-697d-4edb-9eb0-b60b22ae1007" class="image" style="text-align:center"><a href="https://static.javatpoint.com/images/jdk2.png"><img style="width:432px" src="https://static.javatpoint.com/images/jdk2.png"/></a></figure><h1 id="4eab4236-d2b3-4bd1-a942-e792005721f0" class="block-color-purple">2. What is the different between for loop &amp; Enhanced for loop? Explain with example.</h1><p id="9979c713-f7af-4c97-ad17-8ad9e2b1fb66" class="">
+</p><table id="db8cfe0e-2546-42ea-bf54-b450dd4edffa" class="simple-table"><tbody><tr id="7ae79c8d-c858-4af3-8d69-9874d849c8cc"><td id="n=iR" class=""><strong>Normal for-loop</strong></td><td id="RU&gt;P" class=""><strong>Enhanced for-loop</strong></td></tr><tr id="8f886305-edc1-4647-a290-a7a6312810eb"><td id="n=iR" class="">This for-loop is present from JDK1</td><td id="RU&gt;P" class="">This for loop is present from JDK5</td></tr><tr id="b091e19f-8cdf-4bd3-8614-dda28953309d"><td id="n=iR" class="">In a normal for-loop, we can increase the counter as per our wish by using
+ i=i+x( where x is any constant x=1,2,3…)</td><td id="RU&gt;P" class="">But enhanced for loop will execute in a sequential manner i.e counter will always increase by one.</td></tr><tr id="b2d3d345-d449-4b27-bacb-726403cf2779"><td id="n=iR" class="">Using this for loop we can iterate on any container object.</td><td id="RU&gt;P" class="">We can only iterate on that container by using this loop to implement the iterable interface.</td></tr><tr id="6cb7bfb4-59e5-4302-8902-953ceca9ca07"><td id="n=iR" class="">In this for-loop, we can iterate in both decrement or increment order.</td><td id="RU&gt;P" class="">But in this for-loop, we can iterate only in increment order.</td></tr><tr id="01040221-c8e1-4c3f-9158-d9e04d7d659b"><td id="n=iR" class="">In this for-loop, we can replace elements at any specific index.</td><td id="RU&gt;P" class="">But in this for-loop, we don’t have access to the index, so we cannot replace elements at any specific index.</td></tr><tr id="86be7475-8691-4882-b21b-3939de4bb26a"><td id="n=iR" class="">By using normal for-loop we can print array elements either in the original order or in reverse order.</td><td id="RU&gt;P" class="">But in the for-each loop<strong>,</strong> we can print array element only in the original order, not in reverse order</td></tr><tr id="beb200c1-c6c1-4b2c-9771-c2f920071af5"><td id="n=iR" class=""><strong>Example: </strong>Printing element in a 1D array 
+int[ ] x={1,2,3};
+for(int i=0;i&lt;x.length;i++)
+{
+   System.out.println(x[i]);
+}</td><td id="RU&gt;P" class=""><strong>Example: </strong>Printing element in a 1D array using for-each loop 
+int[ ] x={1,2,3};
+for(int a :  x)
+{
+  System.out.println(a);
+}</td></tr><tr id="3fde911b-1dac-4943-b91c-a754b94dcdc7"><td id="n=iR" class=""><strong>Example: </strong>Printing element in a 2D array using for loop
+int[ ][ ] x={{1,2,3},{4,5,6}};
+for(int i=0;i&lt;x.length;i++) {
+for(int j=0; j&lt;x[i].length;j++) {
+System.out.println(x[i][j]);
+}
+}</td><td id="RU&gt;P" class=""><strong>Example: </strong>Printing element in a 2D array using for-each loop
+int[ ][ ] x={{1,2,3},{4,5,6}} ;
+for(int[ ] x1 :x){
+for(int x2 : x1) {
+System.out.println(x2);
+}
+}</td></tr></tbody></table><p id="cb0e995a-e08a-4694-b1be-dc7f61768e00" class="">
+</p><h1 id="6a93f17a-354d-4475-9e6d-12c022d76bfa" class="block-color-orange">3. difference between break and continue with java program</h1><p id="5d8aa962-7db9-4771-9236-e9b51750b8ac" class="">Break statement mainly used to terminate the enclosing loop such as while, do-while, for or switch statement wherever break is declared.</p><p id="1e6679a0-9a15-4de0-acad-65a8613cad5a" class="">Break statement can be used and compatible with &#x27;switch&#x27;, &#x27;label&#x27;.</p><p id="7e9e9385-998d-4a79-a00e-6190d220501c" class="">
+</p><p id="d9aaeabf-b100-4c8c-a42a-0805fd0680ed" class="">Continue statement mainly skip the rest of loop wherever continue is declared and execute the next iteration.</p><p id="6bf01d45-2c65-4207-879e-3e42cee8e39c" class="">We can&#x27;t use continue statement with &#x27;switch&#x27;,&#x27;lablel&#x27; as it is not compatible with them.</p><pre id="666d31ab-9daf-46ca-bd78-75ec5b954878" class="code"><code>public class JavaTester{
+   public static void main(String args[]){
+      
+      System.out.println(&quot;Break Statement
+&quot;);
+      for(int i=1;i&lt;=5;i++){
+         if(i==4) break;
+         System.out.println(i);
+      }
+      
+      System.out.println(&quot;Continue Statement
+&quot;);
+      for(int i=1;i&lt;=5;i++){
+         if(i==1) continue;
+         System.out.println(i);
+      }
+   }
+}</code></pre><figure id="27b1ab19-3c0b-4301-8f9e-b07b199817e5" class="image"><a href="Oop%20Assignment-1%203a241068e03b449c91794fe0091602b0/Untitled.png"><img style="width:528px" src="Oop%20Assignment-1%203a241068e03b449c91794fe0091602b0/Untitled.png"/></a></figure><p id="e7edd243-09e2-49c3-b066-072f816fa0b9" class="">
+</p><h1 id="a68604f7-b8e2-4bbd-bc8c-d788320f1728" class="block-color-purple">4. write a program to implement jagged array in java</h1><pre id="8725b68d-ea20-415c-afce-a6712cf20b49" class="code"><code>
+class Main {
+	public static void main(String[] args)
+	{
+		
+		int arr[][] = new int[2][];
+
+		arr[0] = new int[3];
+
+		arr[1] = new int[2];
+
+		int count = 0;
+		for (int i = 0; i &lt; arr.length; i++)
+			for (int j = 0; j &lt; arr[i].length; j++)
+				arr[i][j] = count++;
+
+		System.out.println(&quot;Contents of 2D Jagged Array&quot;);
+		for (int i = 0; i &lt; arr.length; i++) {
+			for (int j = 0; j &lt; arr[i].length; j++)
+				System.out.print(arr[i][j] + &quot; &quot;);
+			System.out.println();
+		}
+	}
+}</code></pre><figure id="1502ba30-9300-4958-be47-45146bf8e15c" class="image"><a href="Oop%20Assignment-1%203a241068e03b449c91794fe0091602b0/Untitled%201.png"><img style="width:916px" src="Oop%20Assignment-1%203a241068e03b449c91794fe0091602b0/Untitled%201.png"/></a></figure><p id="023a8054-5963-4e69-ad15-05f7cc97a928" class="">
+</p><h1 id="4bf11c35-3e8d-438b-bfac-b6b72339b3be" class="block-color-orange">5. differentiate string and stringbuffer class explain method of both the class</h1><figure id="943321bb-674d-4c62-9b5e-a847d86816e7" class="image" style="text-align:center"><a href="https://static.javatpoint.com/images/string-vs-stringbuffer.png"><img style="width:336px" src="https://static.javatpoint.com/images/string-vs-stringbuffer.png"/></a></figure><p id="6f614dae-fb3d-430f-9894-f7549911434c" class="">String Method</p><table id="3938df7e-6cf2-4926-b4a5-bc21394ccbb0" class="simple-table"><tbody><tr id="73c33205-aca9-4092-8024-7a6b868e6adf"><td id="HV_J" class=""><strong><strong>Java Method</strong></strong></td><td id="]i|H" class=""><strong><strong>Syntax</strong></strong></td><td id="jnPp" class=""><strong><strong>Returns</strong></strong></td><td id="xBD^" class=""><strong><strong>Usage</strong></strong></td></tr><tr id="82259a93-e864-4327-a90c-e203d2df8803"><td id="HV_J" class="">indexOf()</td><td id="]i|H" class="">indexOf​(String str, int fromIndex)</td><td id="jnPp" class="">int</td><td id="xBD^" class="">For finding the index of the first occurrence of a character or a string in the given string.</td></tr><tr id="4f7bad87-52ad-4548-8fe3-a8e14d634666"><td id="HV_J" class="">toCharArray()</td><td id="]i|H" class="">toCharArray()</td><td id="jnPp" class="">char[]</td><td id="xBD^" class="">To form a new character array from this string</td></tr><tr id="884ae08b-787f-40cb-a598-646ecc43ad55"><td id="HV_J" class="">charAt()</td><td id="]i|H" class="">charAt​(int index)</td><td id="jnPp" class="">char</td><td id="xBD^" class="">To get character at the specified index</td></tr><tr id="03a26beb-0158-45a9-8ece-0793f43cbb86"><td id="HV_J" class="">concat()</td><td id="]i|H" class="">concat​(String str)</td><td id="jnPp" class="">String</td><td id="xBD^" class="">To append the passed string to the end of the given string.</td></tr><tr id="f96cc555-db75-4eea-bde3-9b5d780a9d6a"><td id="HV_J" class="">replace()</td><td id="]i|H" class="">replace​(char oldChar, char newChar)</td><td id="jnPp" class="">String</td><td id="xBD^" class="">To replace all the occurrences of the given character/String from</td></tr></tbody></table><p id="3f9743ab-975f-4b4f-97e0-6ac509f7bf34" class=""><mark class="highlight-blue">Stringbuffer Method</mark></p><p id="21dcaeae-c207-4b6b-9d6d-bc88a5eb206c" class="block-color-teal"><mark class="highlight-teal"><strong>1. append Method:</strong></mark></p><p id="03a518a4-0daa-462a-84ee-e878520b0e06" class=""><mark class="highlight-blue">The append( ) method appends (or concatenates) the string representation of any other data type (e.g., boolean, int, float, long, String, Object, etc) to the end of the sequence of characters in the StringBuffer object.</mark></p><p id="a7bc9a8e-4833-465c-b0ee-54b6b401a8e3" class=""><mark class="highlight-teal">2</mark><mark class="highlight-teal"><strong>. length():</strong></mark></p><p id="4aefeab8-9b6a-4401-b0e0-47bc43427463" class=""><mark class="highlight-blue">The length() method returns the length of the current StringBuffer object. Length is the number of characters stored in buffer. The general syntax of length() method is as:</mark></p><p id="270d4c24-8771-4d66-8be0-901b2b754ead" class=""><mark class="highlight-teal">3</mark><mark class="highlight-teal"><strong>. capacity():</strong></mark></p><p id="d8138bcd-dde4-41b6-8498-696dce48648e" class=""><mark class="highlight-blue">The capacity() method returns the current capacity of StringBuffer. The capacity is the total size of storage available for newly inserted characters, beyond which storage allocation will occur.</mark></p><p id="803c5423-a548-4106-9a71-ce0875990f9e" class=""><mark class="highlight-teal">4</mark><mark class="highlight-teal"><strong>. charAt():</strong></mark></p><p id="50e7eebf-2ec6-42c9-be29-2d81c5adb7fd" class=""><mark class="highlight-blue">This method obtains the value of a single character at the specified index. Its general form is as follows:</mark></p><p id="06062e7a-7b69-4594-aa8b-43319b8fd87c" class=""><mark class="highlight-teal">5</mark><mark class="highlight-teal"><strong>. getChars():</strong></mark></p><p id="2c6eb01e-8f9f-4a6c-8e17-954db99414ae" class=""><mark class="highlight-blue">This method copies a substring of a StringBuffer object into a character array specified by c. The general syntax is as follows:</mark></p><pre id="d816729a-444a-49fa-9b6f-857e14151087" class="code code-wrap"><code>public void getChars(int sourceStart, int sourceEnd, char[ ] c, int k)</code></pre><h1 id="0cdc3318-39d9-415f-aa76-70481a8b6ac3" class="block-color-purple">6. Explain constructor and method in java</h1><h1 id="4e159d43-a970-4927-a49b-2c4063613be9" class="block-color-gray">Constructor</h1><p id="27b2878c-e746-48c3-af84-49f205c18a09" class="block-color-blue">A constructor in Java is similar to a method that is invoked when an object of the class is created.</p><p id="528ec31e-c6c5-4494-b4b1-cd8f06fd8054" class="block-color-blue">Unlike <a href="https://www.programiz.com/java-programming/methods">Java methods</a>, a constructor has the same name as that of the class and does not have any return type. For example,</p><pre id="780c3b8b-a0ed-4753-a1d2-d8ce307b17ae" class="code"><code>class Test {
+  Test() {
+    // constructor body
+  }
+}</code></pre><p id="b39d01c1-5270-4b1e-9fff-516e9959d8cc" class="block-color-blue">Here, <code>Test()</code> is a constructor. It has the same name as that of the class and doesn&#x27;t have a return type.</p><h3 id="b82cfb2a-aecb-40d6-b7f6-26655c5b79b9" class="block-color-brown"><strong>Types of Constructor</strong></h3><p id="9ab5fddc-6d87-4bee-b510-258b6813d176" class="block-color-blue">In Java, constructors can be divided into 2 types:</p><ol type="1" id="20a4b5ff-3d51-40e1-8e60-0f77ba26af73" class="block-color-pink numbered-list" start="1"><li>Parameterized Constructor</li></ol><ol type="1" id="72f5b262-21c2-4097-af7f-c3b0177b7382" class="block-color-pink numbered-list" start="2"><li>Default Constructor</li></ol><h2 id="52c02f6b-aa35-4a96-bec2-bd383e9ddcac" class="block-color-teal">1. Java Parameterized Constructor</h2><p id="d4f7acf7-86b1-41b1-b966-85a50337e466" class="block-color-blue">A Java constructor can also accept one or more parameters. Such constructors are known as parameterized constructors (constructor with parameters).</p><pre id="6ab4c1da-c11d-4f58-a52c-804f3bd69b9e" class="code"><code>class Main {
+
+  String languages;
+
+  Main(String lang) {
+    languages = lang;
+    System.out.println(languages + &quot; Programming Language&quot;);
+  }
+
+	public static void main(String[] args) {
+	
+
+	    Main obj1 = new Main(&quot;Java&quot;);
+	    Main obj2 = new Main(&quot;Python&quot;);
+	    Main obj3 = new Main(&quot;C&quot;);
+}</code></pre><pre id="980c9cbc-99e2-4873-9da4-0a90c6753c00" class="code code-wrap"><code>Java Programming Language
+Python Programming Language
+C Programming Language</code></pre><h2 id="cd35e892-ccbe-4466-9c87-e8be735806e9" class="block-color-teal">2. Java Default Constructor</h2><p id="98fc1734-b241-47b1-b60f-2602b204e0cf" class="block-color-blue">Similar to methods, a Java constructor may or may not have any parameters (arguments).</p><p id="b04192b2-79af-41d9-a536-6cf232498f2e" class="block-color-blue">If a constructor does not accept any parameters, it is known as a no-argument constructor. For example,</p><pre id="333fb585-ca0e-40ba-875d-740144949e84" class="code"><code>class Main {
+
+  int i;
+
+  private Main() {
+    i = 5;
+    System.out.println(&quot;Constructor is called&quot;);
+  }
+
+  public static void main(String[] args) {
+
+    Main obj = new Main();
+    System.out.println(&quot;Value of i: &quot; + obj.i);
+  }
+}</code></pre><pre id="d0ae5ccb-5006-4a47-8d3c-e2bc4c8ccc73" class="code code-wrap"><code>Constructor is called
+Value of i: 5</code></pre><h1 id="f8dd1936-442d-4e0f-804e-2a48e033baba" class="block-color-gray">Method</h1><p id="47acc84b-85d0-4388-9327-1055bdb58577" class="block-color-blue">A method is a block of code that performs a specific task.</p><p id="6e96cf43-7abe-42fc-a768-4eeb27ff759f" class=""><mark class="highlight-blue">Suppose you need to create a program to create a circle and color it. You can create two methods to solve this problem:</mark></p><ul id="f7bfd026-2aec-4d0e-b17f-8f0e73faa963" class="block-color-blue bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">a method to draw the circle</mark></li></ul><ul id="325e847e-b28d-4c89-9d63-c8b78d5e8684" class="block-color-blue bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue">a method to color the circle</mark></li></ul><p id="eb36b3ee-07f9-4b37-b68e-bd06777f5690" class=""><mark class="highlight-blue">Dividing a complex problem into smaller chunks makes your program easy to understand and reusable.</mark></p><p id="d6cb9154-a74b-4d1c-be79-ad243cfe22b2" class=""><mark class="highlight-blue">In Java, there are two types of methods:</mark></p><ul id="c4a55a4b-0ae5-4fe7-923d-1eea6a10f292" class="block-color-blue bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue"><strong>User-defined Methods</strong></mark><mark class="highlight-blue">: We can create our own method based on our requirements.</mark></li></ul><ul id="fa05bcee-5206-48b7-b02c-b5147dc07de3" class="block-color-blue bulleted-list"><li style="list-style-type:disc"><mark class="highlight-blue"><strong>Standard Library Methods</strong></mark><mark class="highlight-blue">: These are built-in methods in Java that are available to use.</mark></li></ul><h1 id="36a715b1-de0c-4c1f-a08f-1190750e1c44" class="block-color-teal">Calling a Method in Java</h1><p id="e46f17c4-374a-438f-a309-e1dc89f74801" class="block-color-blue">In the above example, we have declared a method named <code>addNumbers()</code>. Now, to use the method, we need to call it.</p><p id="f6ab2c1d-01c3-488d-8089-6e1206d80cfd" class="block-color-blue">Here&#x27;s is how we can call the <code>addNumbers()</code> method.</p><figure id="3adef366-7f23-450f-960b-bddfe89695eb" class="image"><a href="https://cdn.programiz.com/sites/tutorial2program/files/java-method-call.png"><img style="width:432px" src="https://cdn.programiz.com/sites/tutorial2program/files/java-method-call.png"/></a></figure><pre id="9e9a5696-fae7-42df-93e8-0e89d7df534f" class="code"><code>class Main {
+
+  // create a method
+  public int addNumbers(int a, int b) {
+    int sum = a + b;
+    // return value
+    return sum;
+  }
+
+  public static void main(String[] args) {
+    
+    int num1 = 25;
+    int num2 = 15;
+
+    // create an object of Main
+    Main obj = new Main();
+    // calling method
+    int result = obj.addNumbers(num1, num2);
+    System.out.println(&quot;Sum is: &quot; + result);
+  }
+}</code></pre><p id="495eca94-1bbf-408f-a1d7-848099616caa" class=""><code>Sum is: 40</code></p><h1 id="863037fe-d1d3-4680-9f03-f7b99f3534e6" class="block-color-teal">Java Method Return Type</h1><p id="62e4439f-c364-4fc3-9901-654eb9969ec7" class=""><mark class="highlight-blue">A Java method may or may not return a value to the function call. We use the </mark><mark class="highlight-blue"><strong>return statement</strong></mark><mark class="highlight-blue"> to return any value. For example,</mark></p><pre id="bde1ded5-d34e-4343-b675-cf78e507ec33" class="code"><code>class Main {
+
+  public static int square(int num) {
+
+    return num * num;
+  }
+
+  public static void main(String[] args) {
+    int result;
+
+    result = square(10);
+
+    System.out.println(&quot;Squared value of 10 is: &quot; + result);
+  }
+}</code></pre><p id="55103764-94c2-4f6b-aa60-5b9e7605b56c" class=""><code>Squared value of 10 is: 100</code></p><p id="27d44c9f-9d2e-46ee-aed1-2f9b976427b5" class="">
+</p></div></article></body></html>

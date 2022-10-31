@@ -308,7 +308,7 @@ background: linear-gradient(32deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
     margin-top: 20px;
 }
 
-.sb-book button {
+ button.learn-more {
     position: relative;
     display: inline-block;
     cursor: pointer;
@@ -320,26 +320,26 @@ background: linear-gradient(32deg,#03a9f4,#f441a5,#ffeb3b,#03a9f4);
     padding: 0;
     font-size: inherit;
     font-family: inherit;
-    bottom: -80px;
+    /* bottom: -80px; */
 }
 
-.sb-book button.learn-more {
+ button.learn-more {
 width: 12rem;
 height: auto;
 }
 
-.sb-book button.learn-more .circle {
+ button.learn-more .circle {
 transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
 position: relative;
 display: block;
-margin: 0;
+margin: 0px;
 width: 2.3rem;
 height: 2.3rem;
 background: #282936;
 border-radius: 1.625rem;
 }
 
-.sb-book button.learn-more .circle .icon {
+ button.learn-more .circle .icon {
 transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
 position: absolute;
 top: 0;
@@ -348,7 +348,7 @@ margin: auto;
 background: #fff;
 }
 
-.sb-book button.learn-more .circle .icon.arrow {
+ button.learn-more .circle .icon.arrow {
 transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
 left: 0.625rem;
 width: 1.125rem;
@@ -356,7 +356,7 @@ height: 0.125rem;
 background: none;
 }
 
-.sb-book button.learn-more .circle .icon.arrow::before {
+ button.learn-more .circle .icon.arrow::before {
 position: absolute;
 content: "";
 top: -0.29rem;
@@ -368,7 +368,7 @@ border-right: 0.125rem solid #fff;
 transform: rotate(45deg);
 }
 
-.sb-book button.learn-more .button-text {
+ button.learn-more .button-text {
 transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
 position: absolute;
 top: 0;
@@ -384,18 +384,23 @@ text-align: center;
 text-transform: uppercase;
 }
 
-.sb-book button:hover .circle {
+ button:hover .circle {
 width: 100%;
 }
 
-.sb-book button:hover .circle .icon.arrow {
+ button:hover .circle .icon.arrow {
 background: #fff;
 transform: translate(1rem, 0);
 }
    
-   .sb-book button:hover .button-text {
+ button:hover .button-text {
     color: #fff;
    }
+
+.bookbtn{
+    position: relative;
+    bottom: -80px;
+}
 
 .last{
     height: 92vh;
