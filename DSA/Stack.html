@@ -1,0 +1,806 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Stack</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f65cd954-3a55-4bcc-94dd-003e57e107d6" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">2️⃣</span></div><h1 class="page-title">Stack</h1></header><div class="page-body"><p id="98ac079d-4f4b-41c1-ba0d-7044ae1f84f5" class=""><mark class="highlight-blue">Stack is a linear data structure which follows a particular order in which the operations are performed. The order may be LIFO(Last In First Out) or FILO(First In Last Out).</mark></p><figure id="e59d844e-70b4-47a4-a97f-0322c8a15cc5" class="image"><a href="Stack%20f65cd9543a554bcc94dd003e57e107d6/download.png"><img style="width:336px" src="Stack%20f65cd9543a554bcc94dd003e57e107d6/download.png"/></a></figure><p id="39a2b230-236f-4a23-adf0-fdc1a58a0bd8" class=""><mark class="highlight-blue">It is an ordered list in which addition of new data item and deletion of already existing data item is done from only one end knows as Top of Stack(TOS)</mark></p><p id="a49df4bb-a4fc-48c2-ba5c-071383790862" class=""><mark class="highlight-blue">Stack is a linear data structure which follows a particular order in which the operations are performed. The order may be LIFO(Last In First Out) or FILO(First In Last Out).</mark></p><h2 id="7f28fa58-f73a-4ea6-9f56-78beec051865" class="block-color-orange"><strong>Standard Stack Operations</strong></h2><ul id="dd3aac3e-32b8-430e-b45d-604f73d86112" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>push():</strong></mark> <mark class="highlight-pink">When we insert an element in a stack then the operation is known as a push. If the stack is full then the overflow condition occurs.</mark></li></ul><ul id="b7d55dd0-7add-4e17-bbc8-07e2ea8c8175" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>pop():</strong></mark><mark class="highlight-purple"> </mark><mark class="highlight-pink">When we delete an element from the stack, the operation is known as a pop. If the stack is empty means that no element exists in the stack, this state is known as an underflow state.</mark></li></ul><ul id="9ccaa43b-a6f6-4820-a9d9-f35ca88c7ddc" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>isEmpty():</strong></mark> <mark class="highlight-pink">It determines whether the stack is empty or not.</mark></li></ul><ul id="2eaad83f-68de-4ba3-ab33-58b3e029e14b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>isFull():</strong></mark> <mark class="highlight-pink">It determines whether the stack is full or not.&#x27;</mark></li></ul><ul id="cdd9930f-181d-4c64-9d9b-cd91de29c281" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>peek():</strong></mark> <mark class="highlight-pink">It returns the element at the given position.</mark></li></ul><ul id="59ecc16f-65a2-4bf4-af5a-22a15f3b7708" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>display():</strong></mark> <mark class="highlight-pink">It prints all the elements available in the stack.</mark></li></ul><h2 id="d0ea57a9-bcc6-422b-b6e8-a71508d31525" class="block-color-orange"><strong>Push Operation</strong></h2><p id="82de109a-3f68-4a6f-8ba7-13cd1497a7be" class=""><mark class="highlight-blue">The process of putting a new data element onto stack is known as a Push Operation. Push operation involves a series of steps −</mark></p><ul id="32231d65-bef3-42fe-b787-9432e146fecc" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>Step 1</strong></mark><mark class="highlight-blue"> − </mark><mark class="highlight-pink">Checks if the stack is full.</mark></li></ul><ul id="483100d8-8778-4c10-ae26-468751549ffe" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>Step 2</strong></mark><mark class="highlight-blue"> − </mark><mark class="highlight-pink">If the stack is full, produces an error and exit.</mark></li></ul><ul id="e218185f-de4f-4ad2-a3d6-39e3d59f3a97" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>Step 3</strong></mark><mark class="highlight-blue"> −</mark><mark class="highlight-pink"> If the stack is not full, increments </mark><mark class="highlight-pink"><strong>top</strong></mark><mark class="highlight-pink"> to point next empty space.</mark></li></ul><ul id="e184a5ca-a561-4509-86bd-60b5f8550fd8" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>Step 4</strong></mark><mark class="highlight-purple"> </mark><mark class="highlight-blue">− </mark><mark class="highlight-pink">Adds data element to the stack location, where top is pointing.</mark></li></ul><ul id="2d897b57-440d-4e4c-a6b8-a15ac7f833c2" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>Step 5</strong></mark><mark class="highlight-blue"> − </mark><mark class="highlight-pink">Returns success.</mark></li></ul><figure id="ef9d6e7b-295d-4588-9930-67216cf29dce" class="image"><a href="https://www.tutorialspoint.com/data_structures_algorithms/images/stack_push_operation.jpg"><img style="width:288px" src="https://www.tutorialspoint.com/data_structures_algorithms/images/stack_push_operation.jpg"/></a></figure><h3 id="67e8a992-8943-4f61-9b8d-223fa433f8dc" class="block-color-orange"><strong>Algorithm for PUSH Operation</strong></h3><pre id="d744bd83-a9fc-4eef-b622-771513ce5e25" class="code code-wrap"><code>begin procedure push: stack, data
+
+   if stack is full
+      return null
+   endif
+
+   top ← top + 1
+   stack[top] ← data
+
+end procedure</code></pre><p id="b2f34653-4432-4396-81cf-a1fa9c2cee1f" class=""><strong>Example</strong></p><pre id="c177f5bb-0a34-4ef8-8f6b-ea8cdada3100" class="code code-wrap"><code>void push(int data) {
+   if(!isFull()) {
+      top = top + 1;
+      stack[top] = data;
+   } else {
+      printf(&quot;Could not insert data, Stack is full.\n&quot;);
+   }
+}</code></pre><h2 id="f26b0ba3-48c3-4ea0-aa41-781eaff2361f" class="block-color-orange"><strong>Pop Operation</strong></h2><p id="0c2ea533-df7e-48a1-ab4a-a43dd510a1e2" class=""><mark class="highlight-blue">Accessing the content while removing it from the stack, is known as a Pop Operation. In an array implementation of pop() operation, the data element is not actually removed, instead </mark><mark class="highlight-blue"><strong>top</strong></mark><mark class="highlight-blue"> is decremented to a lower position in the stack to point to the next value. But in linked-list implementation, pop() actually removes data element and deallocates memory space.</mark></p><p id="e9f44833-0335-4af3-af4c-85ea168826f4" class=""><mark class="highlight-blue">A Pop operation may involve the following steps −</mark></p><ul id="f2e7fd22-8aa9-4554-aa65-3ed52dcf7c48" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>Step 1</strong></mark> − <mark class="highlight-pink">Checks if the stack is empty.</mark></li></ul><ul id="06721661-5db1-4cb9-80f6-fb9b158ce8c7" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>Step 2</strong></mark> − <mark class="highlight-pink">If the stack is empty, produces an error and exit.</mark></li></ul><ul id="16120426-9693-47ae-a9a6-6f04a9d1c0a3" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>Step 3</strong></mark> − <mark class="highlight-pink">If the stack is not empty, accesses the data element at which </mark><mark class="highlight-pink"><strong>top</strong></mark><mark class="highlight-pink"> is pointing.</mark></li></ul><ul id="5032b67f-a9b1-4a6f-bd4e-b87312df1d27" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>Step 4</strong></mark> − <mark class="highlight-pink">Decreases the value of top by 1.</mark></li></ul><ul id="cfd16758-aaa7-4611-89e9-b99ee28603c1" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple"><strong>Step 5</strong></mark> − <mark class="highlight-pink">Returns success.</mark></li></ul><figure id="b0fd3849-46f1-4038-aa74-0caed10d2c62" class="image"><a href="https://www.tutorialspoint.com/data_structures_algorithms/images/stack_pop_operation.jpg"><img style="width:336px" src="https://www.tutorialspoint.com/data_structures_algorithms/images/stack_pop_operation.jpg"/></a></figure><h3 id="191178a5-6196-4fd0-91bf-7e3aac969067" class="block-color-orange"><strong>Algorithm for Pop Operation</strong></h3><pre id="bd1a9ecc-74a8-41d7-bb5b-a1112ef73865" class="code code-wrap"><code>begin procedure pop: stack
+
+   if stack is empty
+      return null
+   endif
+
+   data ← stack[top]
+   top ← top - 1
+   return data
+
+end procedure</code></pre><pre id="233a3edf-57b7-4519-950c-bf378ff98b22" class="code code-wrap"><code>int pop(int data) {
+
+   if(!isempty()) {
+      data = stack[top];
+      top = top - 1;
+      return data;
+   } else {
+      printf(&quot;Could not retrieve data, Stack is empty.\n&quot;);
+   }
+}</code></pre><h3 id="ee8b12c5-6216-47c1-8ffb-0b8b2b56da83" class="block-color-orange"><strong>peek()</strong></h3><pre id="d1220f37-f49c-4edc-81e1-59d39bc55c0d" class="code code-wrap"><code>begin procedure peek
+   return stack[top]
+end procedure</code></pre><p id="b4c9f5a7-49fd-496e-ba7d-45fbd8e29e37" class=""><strong>Example</strong></p><pre id="eef12902-aae0-4272-a966-e48c51194866" class="code code-wrap"><code>int peek() {
+   return stack[top];
+}</code></pre><h3 id="10fddc9c-a134-4a67-b869-efca74a08306" class="block-color-orange"><strong>isfull()</strong></h3><pre id="d122fa57-45de-4660-bbe6-c24327401873" class="code code-wrap"><code>begin procedure isfull
+
+   if top equals to MAXSIZE
+      return true
+   else
+      return false
+   endif
+
+end procedure</code></pre><p id="e0d35ac2-4572-4019-bed5-9ada5d10f462" class=""><strong>Example</strong></p><pre id="7e222cc1-751a-416a-b368-801c9e19c2ad" class="code code-wrap"><code>bool isfull() {
+   if(top == MAXSIZE)
+      return true;
+   else
+      return false;
+}</code></pre><h3 id="aa79fab0-5e95-43d7-a305-cead9b46c2e1" class="block-color-orange"><strong>isempty()</strong></h3><pre id="15db28e6-9e15-4730-99d8-c4adac056a4e" class="code code-wrap"><code>begin procedure isempty
+
+   if top less than 1
+      return true
+   else
+      return false
+   endif
+
+end procedure</code></pre><p id="b8e9122e-06d5-4a6a-97c0-220c65463238" class=""><strong>Example</strong></p><pre id="6d7ef71d-2a52-49a4-b52a-f92dc1309624" class="code code-wrap"><code>bool isempty() {
+   if(top == -1)
+      return true;
+   else
+      return false;
+}</code></pre><h2 id="252a1a7c-821b-4fff-90cf-edbcbdeda3bf" class="block-color-orange">Stack(Prefix &amp; Postfix)</h2><ol type="1" id="c21fe339-ca5a-4aed-8f02-9e845047841a" class="block-color-teal numbered-list" start="1"><li>Infix Notation: Where the operator is written in between the operands.<p id="5eaa1b01-c33c-443e-a444-73b5c195e289" class="block-color-gray">Ex:- A+B </p></li></ol><ol type="1" id="d6445cae-71e3-404c-8973-8f29b1175010" class="block-color-teal numbered-list" start="2"><li>Prefix Notation: In this operator is written before the operands.<p id="17a8d0a6-a88c-4112-8221-cd2ad3ee44ed" class="block-color-gray">Ex:- +AB </p></li></ol><ol type="1" id="3083b4fc-c2ba-49d4-9d1b-078a94510172" class="block-color-teal numbered-list" start="3"><li>Postfix Notation: In this operator is written after the operands.<p id="e3c1ca10-adfe-4e84-a8f3-924196c7c0cc" class="block-color-gray">Ex:- AB+ </p></li></ol><p id="b5a2ed65-f62a-47dc-bddd-7c1e9467a140" class="">
+</p><h2 id="949b24bb-1271-4108-ae2f-45dbf20acda0" class="block-color-orange">Infix to Postfix</h2><h3 id="4e6a37ba-3b51-4b29-84c3-64e3c046d087" class=""><strong>Conversion To Postfix</strong></h3><pre id="27bada02-5f6b-4c16-96e9-7bf934bca7d1" class="code code-wrap"><code>A+(B*C-(D/E-F)*G)*H</code></pre><table id="7b884de6-4bf8-44b6-9b58-e110a8160865" class="simple-table"><tbody><tr id="e7c86e32-fc27-48e5-bd51-6a14a18f8cd0"><td id="~{|i" class=""><strong>Stack</strong></td><td id="EptF" class=""><strong>Input</strong></td><td id="&lt;plb" class=""><strong>Output</strong></td></tr><tr id="86f56897-ef2f-4486-9b18-d82414d7b9df"><td id="~{|i" class=""><strong>Empty</strong></td><td id="EptF" class=""><strong>A+(B*C-(D/E-F)*G)*H</strong></td><td id="&lt;plb" class=""><strong>-</strong></td></tr><tr id="8bdd2d1a-5c56-406f-84f1-1f9ebdb82626"><td id="~{|i" class=""><strong>Empty</strong></td><td id="EptF" class=""><strong>+(B*C-(D/E-F)*G)*H</strong></td><td id="&lt;plb" class=""><strong>A</strong></td></tr><tr id="86e066a8-310a-4a11-b851-c0c234560a3d"><td id="~{|i" class=""><strong>+</strong></td><td id="EptF" class=""><strong>(B*C-(D/E-F)*G)*H</strong></td><td id="&lt;plb" class=""><strong>A</strong></td></tr><tr id="e8758a4e-42d0-49c0-b138-5dad7386a6ef"><td id="~{|i" class=""><strong>+(</strong></td><td id="EptF" class=""><strong>B*C-(D/E-F)*G)*H</strong></td><td id="&lt;plb" class=""><strong>A</strong></td></tr><tr id="d2492c1f-b39d-44ce-ac14-1c83e5e60821"><td id="~{|i" class=""><strong>+(</strong></td><td id="EptF" class=""><strong>*C-(D/E-F)*G)*H</strong></td><td id="&lt;plb" class=""><strong>AB</strong></td></tr><tr id="91d2d779-8589-4c64-a042-5a601abcf47c"><td id="~{|i" class=""><strong>+(*</strong></td><td id="EptF" class=""><strong>C-(D/E-F)*G)*H</strong></td><td id="&lt;plb" class=""><strong>AB</strong></td></tr><tr id="9711ea23-5d06-430e-9bc4-8ef6548d3b00"><td id="~{|i" class=""><strong>+(*</strong></td><td id="EptF" class=""><strong>-(D/E-F)*G)*H</strong></td><td id="&lt;plb" class=""><strong>ABC</strong></td></tr><tr id="09e4bb5a-60e1-47e5-8266-ae160fdb2336"><td id="~{|i" class=""><strong>+(-</strong></td><td id="EptF" class=""><strong>(D/E-F)*G)*H</strong></td><td id="&lt;plb" class=""><strong>ABC*</strong></td></tr><tr id="3bf3ffc2-328f-4527-879d-274da30bdc9b"><td id="~{|i" class=""><strong>+(-(</strong></td><td id="EptF" class=""><strong>D/E-F)*G)*H</strong></td><td id="&lt;plb" class=""><strong>ABC*</strong></td></tr><tr id="e818c883-b5e4-444e-b2eb-8c2c503b3ecb"><td id="~{|i" class=""><strong>+(-(</strong></td><td id="EptF" class=""><strong>/E-F)*G)*H</strong></td><td id="&lt;plb" class=""><strong>ABC*D</strong></td></tr><tr id="d2c49ffb-a72e-454c-b6fc-c0d4ea5b2c9c"><td id="~{|i" class=""><strong>+(-(/</strong></td><td id="EptF" class=""><strong>E-F)*G)*H</strong></td><td id="&lt;plb" class=""><strong>ABC*D</strong></td></tr><tr id="2895b16e-e165-4aa0-b70f-a270b0bcf2a3"><td id="~{|i" class=""><strong>+(-(/</strong></td><td id="EptF" class=""><strong>-F)*G)*H</strong></td><td id="&lt;plb" class=""><strong>ABC*DE</strong></td></tr><tr id="130dc7e5-f13a-45a1-85bf-c734c0285582"><td id="~{|i" class=""><strong>+(-(-</strong></td><td id="EptF" class=""><strong>F)*G)*H</strong></td><td id="&lt;plb" class=""><strong>ABC*DE/</strong></td></tr><tr id="bf7d02c1-5917-4883-ac2a-31b7266e9e54"><td id="~{|i" class=""><strong>+(-(-</strong></td><td id="EptF" class=""><strong>F)*G)*H</strong></td><td id="&lt;plb" class=""><strong>ABC*DE/</strong></td></tr><tr id="fd3be331-7eaf-4ad5-895e-a6a1dd1a3f05"><td id="~{|i" class=""><strong>+(-(-</strong></td><td id="EptF" class=""><strong>)*G)*H</strong></td><td id="&lt;plb" class=""><strong>ABC*DE/F</strong></td></tr><tr id="33c15edd-19c2-4274-bfc4-f20af5598d43"><td id="~{|i" class=""><strong>+(-</strong></td><td id="EptF" class=""><strong>*G)*H</strong></td><td id="&lt;plb" class=""><strong>ABC*DE/F-</strong></td></tr><tr id="2d9a41c2-e541-46d1-9250-d5651d3feb29"><td id="~{|i" class=""><strong>+(-*</strong></td><td id="EptF" class=""><strong>G)*H</strong></td><td id="&lt;plb" class=""><strong>ABC*DE/F-</strong></td></tr><tr id="340c814f-4c8b-417f-888e-493a0558a868"><td id="~{|i" class=""><strong>+(-*</strong></td><td id="EptF" class=""><strong>)*H</strong></td><td id="&lt;plb" class=""><strong>ABC*DE/F-G</strong></td></tr><tr id="0e1525a3-d99e-490a-88fc-793a899f3371"><td id="~{|i" class=""><strong>+</strong></td><td id="EptF" class=""><strong>*H</strong></td><td id="&lt;plb" class=""><strong>ABC*DE/F-G*-</strong></td></tr><tr id="8883193b-2fc2-46fc-ae54-d0f103a388ba"><td id="~{|i" class=""><strong>+*</strong></td><td id="EptF" class=""><strong>H</strong></td><td id="&lt;plb" class=""><strong>ABC*DE/F-G*-</strong></td></tr><tr id="586ba505-a76e-4990-878e-51cb99ab8c25"><td id="~{|i" class=""><strong>+*</strong></td><td id="EptF" class=""><strong>End</strong></td><td id="&lt;plb" class=""><strong>ABC*DE/F-G*-H</strong></td></tr><tr id="67ab9818-9186-4247-a263-f5995cf5d05f"><td id="~{|i" class=""><strong>Empty</strong></td><td id="EptF" class=""><strong>End</strong></td><td id="&lt;plb" class=""><strong>ABC*DE/F-G*-H*+</strong></td></tr></tbody></table><h2 id="79b1d1a8-43a7-40cf-9ba0-3c110754f00e" class="block-color-orange">Infix to Prefix</h2><div id="6a70d364-0cea-45d8-ad4a-491aa6b1909e" class="column-list"><div id="ca88b505-7324-4bfd-a683-df1dc33bb0ba" style="width:100%" class="column"><h3 id="661ef6f1-f143-4280-8a74-98ce8550af95" class="">Precedence order</h3><table id="967e0859-31e0-4375-ae2c-31c14155f4fe" class="simple-table"><tbody><tr id="84f69846-932f-4775-9564-999c75835289"><td id="reGh" class="">Operators</td><td id="aDIQ" class="">Symbols</td></tr><tr id="44d78423-bc67-4c70-9ba7-9ae216bcd9d5"><td id="reGh" class="">Parenthesis</td><td id="aDIQ" class="">{ }, ( ), [ ]</td></tr><tr id="9f004798-0e29-4202-92b7-fa4d579ce8fc"><td id="reGh" class="">Exponential notation</td><td id="aDIQ" class="">^</td></tr><tr id="3fbeb334-4805-4cb6-84f5-7bb81dc09e73"><td id="reGh" class="">Multiplication and Division</td><td id="aDIQ" class="">*, /</td></tr><tr id="ce0e79df-eed5-4851-b221-d23724f6b67d"><td id="reGh" class="">Addition and Subtraction</td><td id="aDIQ" class="">+, -</td></tr></tbody></table></div><div id="ca151b5b-cd4c-4284-a984-ca1c75aa4e11" style="width:100%" class="column"><h3 id="6406c5a6-d6fc-4ba1-aefd-aecb231eb645" class="">Associativity order</h3><table id="72087b19-6054-422b-bf7d-56e909319510" class="simple-table"><tbody><tr id="b47c1592-269f-424e-a528-e9d626e136e3"><td id="J?TC" class="">Operators</td><td id="gf\&lt;" class="">Associativity</td></tr><tr id="5926442a-7994-4e6b-bb20-002d7580cf02"><td id="J?TC" class="">^</td><td id="gf\&lt;" class="">Right to Left</td></tr><tr id="dee76ac5-a124-4140-aab6-f1c39384f548"><td id="J?TC" class="">*, /</td><td id="gf\&lt;" class="">Left to Right</td></tr><tr id="df10379f-9425-4461-af65-a25ec11b90dc"><td id="J?TC" class="">+, -</td><td id="gf\&lt;" class="">Left to Right</td></tr></tbody></table></div></div><h1 id="afcf4697-5a8b-4190-a594-e7bf76b39961" class="block-color-orange"><strong>Infix to prefix conversion</strong></h1><p id="fdeef355-028e-4498-99c2-6b59fb88a781" class="block-color-teal"><strong>Expression = (A+B^C)*D+E^5</strong></p><p id="2c17367c-dc27-4e6b-821e-c3e431c00066" class=""><mark class="highlight-purple"><strong>Step 1.</strong></mark><strong> </strong><mark class="highlight-pink"><strong>Reverse the infix expression.</strong></mark><div class="indented"><p id="7dec3fe5-e7de-4332-a1e4-2f98a55d2991" class="block-color-teal"><strong>5^E+D*)C^B+A(</strong></p></div></p><p id="33d4a9b9-374b-44c9-9ff8-08d645f00ae4" class=""><mark class="highlight-purple"><strong>Step 2.</strong></mark><strong> </strong><mark class="highlight-pink"><strong>Make Every &#x27;(&#x27; as &#x27;)&#x27; and every &#x27;)&#x27; as &#x27;(&#x27;</strong></mark><div class="indented"><p id="4d5b4441-2057-450d-81ab-dd99b07b4178" class="block-color-teal"><strong>5^E+D*(C^B+A)</strong></p></div></p><p id="320c0de5-cced-45b6-a53d-c92fd713c613" class=""><mark class="highlight-purple"><strong>Step 3.</strong></mark><strong> </strong><mark class="highlight-pink"><strong>Convert expression to postfix form.</strong></mark></p><pre id="aa01609e-0284-4f1e-9a00-26cd57cf4aa1" class="code code-wrap"><code>A+(B*C-(D/E-F)*G)*H</code></pre><table id="1b35e80b-2415-4b05-a78d-c1a4158110f7" class="simple-table"><tbody><tr id="08a7e118-17e2-435e-82d3-56b0591d4b7a"><td id="xHjY" class=""><strong>Expression</strong></td><td id="W=;J" class=""><strong>Stack</strong></td><td id="@oHl" class=""><strong>Output</strong></td></tr><tr id="bea11e27-f8ff-4dd2-9e8a-339b7bb945c5"><td id="xHjY" class=""><strong>5^E+D*(C^B+A)</strong></td><td id="W=;J" class=""><strong>Empty</strong></td><td id="@oHl" class=""><strong>-</strong></td></tr><tr id="ac7014cc-7651-497c-bf48-32f507c894b0"><td id="xHjY" class=""><strong>^E+D*(C^B+A)</strong></td><td id="W=;J" class=""><strong>Empty</strong></td><td id="@oHl" class=""><strong>5</strong></td></tr><tr id="258cdce9-eca7-48a3-aff3-b1c1d0eea377"><td id="xHjY" class=""><strong>E+D*(C^B+A)</strong></td><td id="W=;J" class=""><strong>^</strong></td><td id="@oHl" class=""><strong>5</strong></td></tr><tr id="8b3ca87a-e53f-4af4-b874-dca3abe9ff67"><td id="xHjY" class=""><strong>+D*(C^B+A)</strong></td><td id="W=;J" class=""><strong>^</strong></td><td id="@oHl" class=""><strong>5E</strong></td></tr><tr id="dfc63a4f-e750-43c1-8db2-520040e8d43d"><td id="xHjY" class=""><strong>D*(C^B+A)</strong></td><td id="W=;J" class=""><strong>+</strong></td><td id="@oHl" class=""><strong>5E^</strong></td></tr><tr id="1cb79163-b8b6-49b9-adb7-cf83b4be07cd"><td id="xHjY" class=""><strong>*(C^B+A)</strong></td><td id="W=;J" class=""><strong>+</strong></td><td id="@oHl" class=""><strong>5E^D</strong></td></tr><tr id="a5618d27-2fb6-4b42-b3c9-da54b9915755"><td id="xHjY" class=""><strong>(C^B+A)</strong></td><td id="W=;J" class=""><strong>+*</strong></td><td id="@oHl" class=""><strong>5E^D</strong></td></tr><tr id="59b67b43-08be-46cd-9a3a-f6eb1842a17f"><td id="xHjY" class=""><strong>C^B+A)</strong></td><td id="W=;J" class=""><strong>+*(</strong></td><td id="@oHl" class=""><strong>5E^D</strong></td></tr><tr id="6712f4cc-9f5f-480c-8aa3-c742b444fa99"><td id="xHjY" class=""><strong>^B+A)</strong></td><td id="W=;J" class=""><strong>+*(</strong></td><td id="@oHl" class=""><strong>5E^DC</strong></td></tr><tr id="0acfcd12-2b5b-40d1-9430-fae9c8990a07"><td id="xHjY" class=""><strong>B+A)</strong></td><td id="W=;J" class=""><strong>+*(^</strong></td><td id="@oHl" class=""><strong>5E^DC</strong></td></tr><tr id="96cf3b5f-3acc-49de-868a-8b583c4f5a9c"><td id="xHjY" class=""><strong>+A)</strong></td><td id="W=;J" class=""><strong>+*(^</strong></td><td id="@oHl" class=""><strong>5E^DCB</strong></td></tr><tr id="63ee5624-c1ba-4911-9d5b-5eebc9e390da"><td id="xHjY" class=""><strong>A)</strong></td><td id="W=;J" class=""><strong>+*(+</strong></td><td id="@oHl" class=""><strong>5E^DCB^</strong></td></tr><tr id="68e4cbac-5be9-46d6-bf1d-07bfbca96b78"><td id="xHjY" class=""><strong>)</strong></td><td id="W=;J" class=""><strong>+*(+</strong></td><td id="@oHl" class=""><strong>5E^DCB^A</strong></td></tr><tr id="38458896-4151-4229-aafc-c69d345a3a3c"><td id="xHjY" class=""><strong>End</strong></td><td id="W=;J" class=""><strong>+*</strong></td><td id="@oHl" class=""><strong>5E^DCB^A+</strong></td></tr><tr id="ab9bc9f6-eac6-4e5f-8f2c-1d28e00bb83b"><td id="xHjY" class=""><strong>End</strong></td><td id="W=;J" class=""><strong>Empty</strong></td><td id="@oHl" class=""><strong>5E^DCB^A+*+</strong></td></tr></tbody></table><p id="15806fc6-afd5-471f-9650-57a96f4ab779" class=""><mark class="highlight-purple"><strong>Step 4.</strong></mark><strong> </strong><mark class="highlight-pink"><strong>Reverse the expression.</strong></mark></p><p id="8f267010-15bf-488f-bf93-27dadbfbf48a" class="block-color-teal"><strong>+*+A^BCD^E5</strong></p><h3 id="a413b09c-bc30-4a4a-a054-d31b0c3daf06" class=""><strong>Result</strong></h3><h3 id="bf0974a1-a863-4739-a76b-2977b69764e9" class="block-color-yellow"><strong>+*+A^BCD^E5</strong></h3><h2 id="d5ecaf06-94bc-483f-951d-c94de60405d1" class="block-color-orange"><strong>Tower of Hanoi</strong></h2><p id="7b1743f7-024a-4c23-b15b-aebd6819d891" class="block-color-blue">The mission is to move all the disks to some another tower without violating the sequence of arrangement. A few rules to be followed for Tower of Hanoi are −</p><ul id="31faa766-bef0-427e-bf53-9af57936d52f" class="block-color-pink bulleted-list"><li style="list-style-type:disc">Only one disk can be moved among the towers at any given time.</li></ul><ul id="1a8d60ab-354a-40e4-b6d5-2ff58f648b8b" class="block-color-pink bulleted-list"><li style="list-style-type:disc">Only the &quot;top&quot; disk can be removed.</li></ul><ul id="3e03e773-24df-4a4e-8422-ef6c13473ecc" class="block-color-pink bulleted-list"><li style="list-style-type:disc">No large disk can sit over a small disk.</li></ul><p id="221f1195-83fd-4aa7-ab4e-d1a5059d32d6" class="">
+</p><figure id="cbd5e8e7-a415-4d62-ae5c-050a4fbd12ed" class="image"><a href="https://www.tutorialspoint.com/data_structures_algorithms/images/tower_of_hanoi_two_disks.gif"><img style="width:384px" src="https://www.tutorialspoint.com/data_structures_algorithms/images/tower_of_hanoi_two_disks.gif"/></a></figure><p id="efba3a71-1846-4a16-b78a-a416601f541d" class="block-color-blue">Tower of Hanoi puzzle with n disks can be solved in minimum <strong>2n−1</strong>
+ steps. This presentation shows that a puzzle with 3 disks has taken <strong>23 - 1 = 7</strong>
+ steps.</p><pre id="33f826d6-1e6f-439c-82ed-20ad7f43e609" class="code code-wrap"><code>START
+Procedure Hanoi(disk, source, dest, aux)
+
+   IF disk == 1, THEN
+      move disk from source to dest
+   ELSE
+      Hanoi(disk - 1, source, aux, dest)     // Step 1
+      move disk from source to dest          // Step 2
+      Hanoi(disk - 1, aux, dest, source)     // Step 3
+   END IF
+
+END Procedure
+STOP</code></pre><h3 id="4887b062-85e5-43af-9137-a02b025bd0af" class="">For 3 Disk</h3><figure id="2a86c814-7f09-4df7-8b14-254ad52e5e91" class="image"><a href="Stack%20f65cd9543a554bcc94dd003e57e107d6/download%201.png"><img style="width:336px" src="Stack%20f65cd9543a554bcc94dd003e57e107d6/download%201.png"/></a></figure><pre id="1ab20371-ec9f-44bf-9385-81615a688aeb" class="code"><code>#include &lt;stdio.h&gt;
+ 
+// C recursive function to solve tower of hanoi puzzle
+void towerOfHanoi(int n, char from_rod, char to_rod, char aux_rod)
+{
+    if (n == 1)
+    {
+        printf(&quot;\n Move disk 1 from rod %c to rod %c&quot;, from_rod, to_rod);
+        return;
+    }
+    towerOfHanoi(n-1, from_rod, aux_rod, to_rod);
+    printf(&quot;\n Move disk %d from rod %c to rod %c&quot;, n, from_rod, to_rod);
+    towerOfHanoi(n-1, aux_rod, to_rod, from_rod);
+}
+ 
+int main()
+{
+    int n = 4; // Number of disks
+    towerOfHanoi(n, \&#x27;A\&#x27;, \&#x27;C\&#x27;, \&#x27;B\&#x27;);  // A, B and C are names of rods
+    return 0;
+}</code></pre><h3 id="93b719cc-bae4-4ee5-a558-15d8b7c26ded" class="">For 4 Disk</h3><figure id="e794eefc-2748-49ff-951f-6faf6effcde9" class="image"><a href="Stack%20f65cd9543a554bcc94dd003e57e107d6/TowersofHanoiSolution_700.svg"><img style="width:432px" src="Stack%20f65cd9543a554bcc94dd003e57e107d6/TowersofHanoiSolution_700.svg"/></a></figure><pre id="9962ab25-4941-4319-a7c9-c8f9ce312443" class="code"><code>// Recursive program for Tower of Hanoi
+#include
+// Recursive function to solve Tower
+// of Hanoi puzzle
+void towerOfHanoi(int n, char from_rod, char to_rod,
+char aux_rod1, char aux_rod2)
+{
+if (n == 0)
+return;
+if (n == 1) {
+printf(“\n Move disk %d from rod %c to rod %c”,
+n, from_rod, to_rod);
+return;
+}
+
+towerOfHanoi(n – 2, from_rod, aux_rod1, aux_rod2,
+to_rod);
+printf(“\n Move disk %d from rod %c to rod %c “,
+n – 1, from_rod, aux_rod2);
+printf(“\n Move disk %d from rod %c to rod %c “,
+n, from_rod, to_rod);
+printf(“\n Move disk %d from rod %c to rod %c “,
+n – 1, aux_rod2, to_rod);
+towerOfHanoi(n – 2, aux_rod1, to_rod, from_rod,
+aux_rod2);
+}
+
+// driver program
+int main()
+{
+int n = 4; // Number of disks
+
+// A, B, C and D are names of rods
+towerOfHanoi(n, ‘A’, ‘D’, ‘B’, ‘C’);
+return 0;
+}</code></pre><p id="548debaf-36b5-43c2-9d65-3da18ed367e9" class="">
+</p></div></article></body></html>
